@@ -1,0 +1,79 @@
+//>>>>>>>>>>>>>>>>>>>>>>> SIDE BAR & GAME OVER >>>>>>>>>>>>>>>>>>>>>>>>
+// draw the sidebar
+var drawSide = function() {
+    textSize(17);
+    
+    // sidebar bg
+    fill(235, 245, 120);
+    rect(0, 0, 199, 399);
+    
+    // sidebar textbox
+    fill(235, 245, 120);
+    rect(15, 10, 166, 200);
+    
+    // text
+    fill(0, 0, 0);
+    textFont(f, 21);
+    text("Time: " + time + "s", 20, 30);
+    text("Score: " + score, 20, 59);
+    
+    // next block type box
+    fill(235, 245, 120);
+    rect(15, 210, 166, 120);
+    fill(26, 18, 26);
+    text("Next: ", 30, 200);
+    
+    // next block
+    fill(255, 0, 0);
+    rect(65, 260, 20, 20);
+    rect(65, 240, 20, 20);
+    if(nextBlockType === squareBlock) {
+        rect(85, 240, 20, 20);
+        rect(85, 260, 20, 20);
+    }
+    if(nextBlockType === regularLBlock) {
+        rect(65, 280, 20, 20);
+        rect(85, 280, 20, 20);
+    }
+    if(nextBlockType === backwardsLBlock) {
+        rect(65, 280, 20, 20);
+        rect(45, 280, 20, 20);
+    }
+    if(nextBlockType === zigzagHighLeftBlock) {
+        rect(85, 240, 20, 20);
+        rect(45, 260, 20, 20);
+    }
+    if(nextBlockType === zigzagLowLeftBlock) {
+        rect(85, 260, 20, 20);
+        rect(45, 240, 20, 20);
+    }
+    if(nextBlockType === lineBlock) {
+        rect(65, 280, 20, 20);
+        rect(65, 300, 20, 20);
+    }
+    if(nextBlockType === tBlock) {
+        rect(45, 260, 20, 20);
+        rect(85, 260, 20, 20);
+    }
+    
+    // pause button
+    if(paused === false) {
+        fill(86, 245, 96);
+        rect(15, 335, 166, 25);
+        fill(26, 18, 26);
+        text("Pause", 66, 355);
+    }
+    else {
+        fill(255, 0, 0);
+        rect(15, 335, 166, 25);
+        fill(255, 255, 255);
+        text("Continue", 55, 355);
+    }
+};
+
+// draw GAME OVER on the screen
+var drawGameOverScreen = function() {
+    fill(15, 7, 9);
+    textSize(40);
+    text("GAME\nOVER", 235, 195);
+};
