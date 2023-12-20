@@ -1,0 +1,110 @@
+//>>>>>>>>>>>>>>>>>>> GLOBAL VARIABLES >>>>>>>>>>>>>>>>>>>>
+var f = createFont("fantasy");
+//splash screen
+var x1 = 5;
+var x2 = 305;
+var speed1 = 2;
+var speed2 = -2;
+//game screen
+var blockSize = 20;
+var borderX = 200;
+var row = [0, 0, 1, 1];
+var col = [5, 4, 5, 4];
+var levelwidth = 10;
+var levelheight = 20;
+var blockArray = [levelwidth * levelheight];
+var time = 0;
+var score = 0;
+var updateSpeed = 20;
+var level = 1;
+var linesCleared = 0;
+// block constants
+var singleBlock = 0;
+var squareBlock = 1;
+var regularLBlock = 2;
+var backwardsLBlock = 3;
+var zigzagHighLeftBlock = 4;
+var zigzagLowLeftBlock = 5;
+var lineBlock = 6;
+var tBlock = 7;
+var currentBlockType = squareBlock;
+var currentBlockRotation = 0; 
+var currentBlockColor = 0xff0f00;
+var nextBlockColor = random() * 255 + 255 * 255 * 255;
+var nextBlockType = round(random()*6.49)+1;
+var mainMenu = true;
+var gameOver = false;
+var paused = false;
+var mobile = false;
+textFont(f, 21);
+line(borderX, 0, borderX, 400);
+//keyboard
+var leftLag = 200;
+var rightLag = 200;
+var lastLeftPressTime = 0;
+var lastRightPressTime = 0;
+var lastUpPressTime = 0;
+var lastPausePressTime = 0;
+
+for(var r = 0; r < levelwidth - 0; r++) {
+    for(var c = 0; c < levelheight - 0; c++) {
+        blockArray[r + c * levelwidth] = 0;
+    }
+}
+
+var getX = function(column) {
+    return 200 + column * blockSize;
+};
+
+var getY = function(roww) {
+    return roww * 20;
+};
+
+var getBlock = function(column, rowe) {
+    return blockArray[column + rowe * levelwidth];
+};
+
+var setBlock = function(column, rowe, value) {
+    blockArray[column + rowe * levelwidth] = value;
+};
+
+// >>>>>>>>>>>>>>>>>>>> BLOCKS >>>>>>>>>>>>>>>>>>>>>
+// draws the blocks
+var drawShapes = function() {
+    fill(31, 240, 160);
+    stroke(0, 0, 0);
+    for(var r = 0; r < levelheight; r++) {
+        for(var c = 0; c < levelwidth; c++) {
+            if(getBlock(c, r) !== 0) {
+                var color = getBlock(c, r);
+                var blue = color % 255;
+                var green = ((color - blue)  % (255^2)) >> 8;
+                var red = (color - green - blue) >> 16;
+                fill(red, green, blue);
+                rect(getX(c), getY(r), blockSize, blockSize);
+            }
+        }
+    }
+    //rect(getX(col), getY(row), blockSize, blockSize);
+};
+
+// erases the block
+var eraseShapes = function() {
+    // background equal to a number between 0 and 255
+    // depending on current block location and time
+    var rowValue = (row[0] * blockSize + 
+                    (time - 1) % updateSpeed) * 255 /
+                    (levelheight * blockSize);
+    
+    var colValue = (col[0] * blockSize + 
+                    (time - 1 - updateSpeed / 2) % 
+                    updateSpeed) * 255 / 
+                    (levelwidth * blockSize);
+                    
+// >>>>>>>>>>>>>>>>>>>> GAMESCREEN >>>>>>>>>>>>>>>>>>>>>
+   //Background of Game screen 
+    fill(235, 245, 120);
+    noStroke();
+    rect(borderX, 0, blockSize * levelwidth, 
+                     blockSize * levelheight);
+};
